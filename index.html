@@ -104,14 +104,13 @@ var context;
                 stars.width=windowWidth;
                 stars.height=window.innerHeight;
                 context = stars.getContext("2d");
-                    context.font = "20px Arial";
-
+              
             }
 
             var Star = function (){
                 this.x = windowWidth * Math.random();
                 this.y = 5000 * Math.random();
-                this.text="❤";
+                this.text="♥";
                 this.color  = "#ea80b0";
 
                 this.getColor=function(){
@@ -130,7 +129,6 @@ var context;
                     this.getColor();
                 }
                 this.draw=function(){
-                  context.font = "20px Arial";
                     context.fillStyle=this.color;
                     context.fillText(this.text,this.x,this.y);
                 }
@@ -161,12 +159,14 @@ var context;
             }
 
             function playStars(){
+              context.clearRect(0, 0, window.innerWidth, window.innerHeight); // thêm dòng này trước vòng lặp
+
                 for (var n = 0; n < starCount; n++){
                     arr[n].getColor();
                     arr[n].draw();
                 }
 
-requestAnimationFrame(playStars);
+                setTimeout("playStars()",100);
             }
 
   var MeteorRain = function(){
