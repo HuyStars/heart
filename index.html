@@ -89,7 +89,7 @@ canvas {
     const gif = document.getElementById("myGif");
     gif.style.opacity = "1";
     gif.style.transform = "translateY(0)";
-  }, 40000);
+  }, 4000);
 var context;
 
             var arr = new Array();
@@ -104,6 +104,7 @@ var context;
                 stars.width=windowWidth;
                 stars.height=window.innerHeight;
                 context = stars.getContext("2d");
+                context.font = "20px Arial";
             }
 
             var Star = function (){
