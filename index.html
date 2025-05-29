@@ -103,6 +103,7 @@ var context;
                 windowWidth = window.innerWidth; 
                 stars.width=windowWidth;
                 stars.height=window.innerHeight;
+                context.font = "20px sans-serif";
                 context = stars.getContext("2d");
               
             }
@@ -110,7 +111,7 @@ var context;
             var Star = function (){
                 this.x = windowWidth * Math.random();
                 this.y = 5000 * Math.random();
-                this.text="♥";
+                this.text="❤";
                 this.color  = "#ea80b0";
 
                 this.getColor=function(){
@@ -129,6 +130,8 @@ var context;
                     this.getColor();
                 }
                 this.draw=function(){
+                  context.clearRect(this.x - 10, this.y - 20, 30, 30); // thêm dòng này để xóa trái tim cũ
+    context.font = "20px sans-serif";
                     context.fillStyle=this.color;
                     context.fillText(this.text,this.x,this.y);
                 }
@@ -159,8 +162,6 @@ var context;
             }
 
             function playStars(){
-              context.clearRect(0, 0, window.innerWidth, window.innerHeight); // thêm dòng này trước vòng lặp
-
                 for (var n = 0; n < starCount; n++){
                     arr[n].getColor();
                     arr[n].draw();
