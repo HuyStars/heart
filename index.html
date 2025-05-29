@@ -104,7 +104,8 @@ var context;
                 stars.width=windowWidth;
                 stars.height=window.innerHeight;
                 context = stars.getContext("2d");
-                context.font = "20px Arial";
+                    context.font = "20px Arial";
+
             }
 
             var Star = function (){
@@ -129,6 +130,7 @@ var context;
                     this.getColor();
                 }
                 this.draw=function(){
+                  context.font = "20px Arial";
                     context.fillStyle=this.color;
                     context.fillText(this.text,this.x,this.y);
                 }
@@ -164,7 +166,7 @@ var context;
                     arr[n].draw();
                 }
 
-               requestAnimationFrame(playStars);
+requestAnimationFrame(playStars);
             }
 
   var MeteorRain = function(){
