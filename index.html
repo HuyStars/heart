@@ -96,7 +96,7 @@ var context;
             var starCount = 800;
 
             var rains = new Array();
-            var rainCount =20;
+            var rainCount =30;
 
             function init(){
                 var stars = document.getElementById("stars");
@@ -112,7 +112,7 @@ var context;
             var Star = function (){
                 this.x = windowWidth * Math.random();
                 this.y = 5000 * Math.random();
-                this.text="❤";
+                this.text="";
                 this.color  = "#ea80b0";
 
                 this.getColor=function(){
@@ -194,7 +194,7 @@ var context;
         this.length = Math.ceil(x);
         this.angle = 30; 
         x = Math.random()+0.5;
-        this.speed = Math.ceil(x); 
+        this.speed = Math.ceil(Math.random() * 1.5 + 1); 
         var cos = Math.cos(this.angle*3.14/180);
         var sin = Math.sin(this.angle*3.14/180) ;
         this.width = this.length*cos ;  
@@ -205,8 +205,8 @@ var context;
 
 
     this.getRandomColor = function (){
-        var a = Math.ceil(255-240* Math.random());
-        this.color1 = "rgba("+a+","+a+","+a+",1)";
+       var a = 255; // dùng giá trị gần 255 để trắng sáng
+this.color1 = "rgba(" + a + "," + a + "," + a + ",1)";
         this.color2 = "black";
     }
 
@@ -226,7 +226,7 @@ var context;
     {
         context.save();
         context.beginPath();
-        context.lineWidth = 1; 
+        context.lineWidth = 3; 
         context.globalAlpha = this.alpha; 
         var line = context.createLinearGradient(this.x, this.y,
             this.x + this.width,
