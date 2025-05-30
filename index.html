@@ -61,27 +61,26 @@ canvas {
 			
 			display: flex;align-items: center;
 		}
-    /* #stars{
-      z-index: 999;
-    } */
-/* Giữ nguyên kích thước bạn đặt sẵn */
+ /* Trạng thái mặc định – ẩn hoàn toàn */
 #myGif{
   position:fixed;
   left:50%; top:50%;
-  transform:translate(-50%, -50%) scale(0.5);
-  opacity:0;
+  transform:translate(-50%, -50%);   /* chỉ căn giữa – KHÔNG phóng to/thu nhỏ */
+  opacity:0;                         /* tàng hình */
+  transition:opacity 1s ease-out;    /* chỉ tween opacity */
+  will-change:opacity;               /* giúp mượt trên mobile */
 
-  transition:
-    opacity   0.8s ease-out,
-    transform 0.8s ease-out;
-
-  will-change: opacity, transform;   /* “đặt chỗ” trên GPU */
-
-  width:1000px; height:1200px;       /* hoặc 100%, 100vh */
+  width:1000px; height:1200px;       /* hoặc 100%, tùy bạn */
   object-fit:cover;
   filter:brightness(1.5);
   z-index:9999;
 }
+
+/* Trạng thái sau 4 s */
+#myGif.show{
+  opacity:1;                         /* hiện dần 1 giây */
+}
+
 
 /* Trạng thái hiện */
 #myGif.show{
@@ -105,25 +104,21 @@ canvas {
 
 		</div>
 <script>
- window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', () => {
   const gif = document.getElementById('myGif');
 
   gif.pause();          // chặn autoplay ẩn
-  gif.currentTime = 0;  // về đầu
-  gif.load();           // bắt buffer sớm
+  gif.currentTime = 0;
+  gif.load();           // bắt đầu buffer
 
-  // Chờ video sẵn sàng phát suôn sẻ
+  // Đợi video buffer đủ để phát mượt
   gif.addEventListener('canplaythrough', () => {
-
-    // Giữ đúng 4 s kể từ lúc trang load (hoặc muốn → tính tiếp từ đây)
     setTimeout(() => {
-      gif.classList.add('show');  // fade + zoom 0.8 s
-      gif.play();                 // bắt đầu phát
-    }, 4000);
-
-  }, { once:true });              // chỉ chạy 1 lần
+      gif.classList.add('show');     // fade-in 1 s
+      gif.play();                    // phát ngay khi đã hiện
+    }, 3000);                        // đúng 4 giây
+  }, { once:true });
 });
-
 
   
 var context;
