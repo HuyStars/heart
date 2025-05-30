@@ -68,17 +68,25 @@ canvas {
 #myGif{
   position:fixed;
   left:50%; top:50%;
-  transform:translate(-50%,-50%) scale(0.5); /* nhỏ 80% lúc đầu */
+  transform:translate(-50%, -50%) scale(0.5);
+  opacity:0;
 
-  opacity:0;                     /* tàng hình */
-  transition:                     /* tween cả 2 thuộc tính */
-    opacity 1s ease-out,
-    transform 2s ease-out;
+  transition:
+    opacity   0.8s ease-out,
+    transform 0.8s ease-out;
 
-  width:1000px; height:1200px;   /* hoặc 100%, tuỳ bạn */
+  will-change: opacity, transform;   /* “đặt chỗ” trên GPU */
+
+  width:1000px; height:1200px;       /* hoặc 100%, 100vh */
   object-fit:cover;
   filter:brightness(1.5);
   z-index:9999;
+}
+
+/* Trạng thái hiện */
+#myGif.show{
+  opacity:1;
+  transform:translate(-50%, -50%) scale(1);
 }
 
 </style>
@@ -92,7 +100,7 @@ canvas {
 			</div>
 			
 			<video id="myGif" muted loop playsinline preload="auto">
-  <source src="img/6654194737716.mp4" type="video/mp4">
+  <source src="img/6655752836140.mp4" type="video/mp4">
 </video>
 
 		</div>
@@ -101,15 +109,20 @@ canvas {
   const gif = document.getElementById('myGif');
 
   gif.pause();          // chặn autoplay ẩn
-  gif.currentTime = 0;
+  gif.currentTime = 0;  // về đầu
+  gif.load();           // bắt buffer sớm
 
-  setTimeout(() => {
-    gif.style.opacity   = '1';             // fade-in 1 s
-    gif.style.transform = 'translate(-50%,-50%) scale(1)'; // phóng to 2 s
-    gif.play();                            // bắt đầu phát
-  }, 4000);
+  // Chờ video sẵn sàng phát suôn sẻ
+  gif.addEventListener('canplaythrough', () => {
+
+    // Giữ đúng 4 s kể từ lúc trang load (hoặc muốn → tính tiếp từ đây)
+    setTimeout(() => {
+      gif.classList.add('show');  // fade + zoom 0.8 s
+      gif.play();                 // bắt đầu phát
+    }, 4000);
+
+  }, { once:true });              // chỉ chạy 1 lần
 });
-
 
 
   
