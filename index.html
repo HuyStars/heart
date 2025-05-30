@@ -64,6 +64,23 @@ canvas {
     /* #stars{
       z-index: 999;
     } */
+/* Giữ nguyên kích thước bạn đặt sẵn */
+#myGif{
+  position:fixed;
+  left:50%; top:50%;
+  transform:translate(-50%,-50%) scale(0.5); /* nhỏ 80% lúc đầu */
+
+  opacity:0;                     /* tàng hình */
+  transition:                     /* tween cả 2 thuộc tính */
+    opacity 1s ease-out,
+    transform 2s ease-out;
+
+  width:1000px; height:1200px;   /* hoặc 100%, tuỳ bạn */
+  object-fit:cover;
+  filter:brightness(1.5);
+  z-index:9999;
+}
+
 </style>
 </head>
 <body>
@@ -73,23 +90,29 @@ canvas {
  <div class="middle">
 			<div class="middle2">	
 			</div>
-			<!-- https://pic.imgdb.cn/item/642547f5a682492fcc15cd5d.gif -->
-			<img src="img/642547f5a682492fcc15cd5d-ezgif.com-crop.gif"
-     width="1000" height="700"
-     id="myGif"
-     style="opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 5s ease;
-            filter: brightness(1.5);
-            image-rendering: pixelated;
-            display: block;z-index: 9999;" />
+			
+			<video id="myGif" muted loop playsinline preload="auto">
+  <source src="img/6654194737716.mp4" type="video/mp4">
+</video>
+
 		</div>
 <script>
+ window.addEventListener('DOMContentLoaded', () => {
+  const gif = document.getElementById('myGif');
+
+  gif.pause();          // chặn autoplay ẩn
+  gif.currentTime = 0;
+
   setTimeout(() => {
-    const gif = document.getElementById("myGif");
-    gif.style.opacity = "1";
-    gif.style.transform = "translateY(0)";
+    gif.style.opacity   = '1';             // fade-in 1 s
+    gif.style.transform = 'translate(-50%,-50%) scale(1)'; // phóng to 2 s
+    gif.play();                            // bắt đầu phát
   }, 4000);
+});
+
+
+
+  
 var context;
 
             var arr = new Array();
