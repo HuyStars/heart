@@ -9,13 +9,13 @@ html, body {
   height: 100%;
   padding: 0;
   margin: 0;
-  background-color: black;
+  background-color: #060606;
 }
 canvas {
   position: absolute;
   width: 100%;
   height: 100%;
-
+  z-index: 999;
 }
 #pinkboard{
   height: 1px !important;
@@ -67,13 +67,13 @@ canvas {
   left:50%; top:50%;
   transform:translate(-50%, -50%);   /* chỉ căn giữa – KHÔNG phóng to/thu nhỏ */
   opacity:0;                         /* tàng hình */
-  transition:opacity 1s ease-out;    /* chỉ tween opacity */
+  transition:opacity 2s ease-out;    /* chỉ tween opacity */
   will-change:opacity;               /* giúp mượt trên mobile */
 
   width:1000px; height:1200px;       /* hoặc 100%, tùy bạn */
   object-fit:cover;
   filter:brightness(1.5);
-  z-index:9999;
+  /* z-index:9999; */
 }
 
 /* Trạng thái sau 4 s */
@@ -99,7 +99,7 @@ canvas {
 			</div>
 			
 			<video id="myGif" muted loop playsinline preload="auto">
-  <source src="img/6655752836140.mp4" type="video/mp4">
+  <source src="img/6655785536143.mp4" type="video/mp4">
 </video>
 
 		</div>
