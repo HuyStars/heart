@@ -126,7 +126,10 @@ animation: glowToGreen 5s forwards;
 </style>
 </head>
 <body>
-
+<audio controls autoplay loop style="display: none;">
+  <source src="img/6681879059266.mp4" type="audio/mpeg" />
+  Trình duyệt không hỗ trợ audio.
+</audio>
 <canvas id="pinkboard"></canvas>
  <canvas id="stars"></canvas>
  <div class="middle">
@@ -142,6 +145,11 @@ animation: glowToGreen 5s forwards;
 
 		</div>
 <script>
+  function unmuteAudio() {
+  const audio = document.getElementById('myAudio');
+  audio.muted = false;
+  audio.play();
+}
 window.addEventListener('DOMContentLoaded', () => {
   const gif = document.getElementById('myGif');
 
