@@ -73,7 +73,7 @@ canvas {
   width:1000px; height:1200px;       /* hoặc 100%, tùy bạn */
   object-fit:cover;
   filter:brightness(1.5);
-  z-index:9999;
+  z-index:99;
 }
 
 /* Trạng thái sau 4 s */
@@ -123,13 +123,32 @@ animation: glowToGreen 5s forwards;
   }
 }
 
+ #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    /* Ẩn video */
+    .video {
+      width: 100%;
+      height: auto;
+      display: none; /* hiện ra sau khi bấm */
+    }
+
 </style>
 </head>
 <body>
-<audio controls autoplay loop style="display: none;">
-  <source src="img/6681879059266.mp4" type="audio/mpeg" />
-  Trình duyệt không hỗ trợ audio.
-</audio>
+<div id="overlay"></div>
+
+<video id="myVideo" class="video" controls style="display:none;">
+  <source src="img/6681879059266.mp4" type="video/mp4">
+</video>
 <canvas id="pinkboard"></canvas>
  <canvas id="stars"></canvas>
  <div class="middle">
@@ -145,11 +164,15 @@ animation: glowToGreen 5s forwards;
 
 		</div>
 <script>
-  function unmuteAudio() {
-  const audio = document.getElementById('myAudio');
-  audio.muted = false;
-  audio.play();
-}
+  const overlay = document.getElementById("overlay");
+  const video = document.getElementById("myVideo");
+
+  overlay.addEventListener("click", () => {
+    overlay.style.display = "none"; // ẩn lớp phủ
+    video.play();                   // phát video có tiếng
+  });
+
+
 window.addEventListener('DOMContentLoaded', () => {
   const gif = document.getElementById('myGif');
 
