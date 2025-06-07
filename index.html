@@ -87,6 +87,41 @@ canvas {
   opacity:1;
   transform:translate(-50%, -50%) scale(1);
 }
+.glow-text {
+  color: #ff69b4; /* màu hồng */
+  font-size: 60px;
+  font-weight: bold;
+  text-align: center;
+
+  text-shadow: 
+    0 0 5px #ff69b4,
+    0 0 10px #ff69b4,
+    0 0 20px #ff69b4,
+    0 0 40px #ff1493,
+    0 0 80px #ff1493;
+
+    position: absolute;
+    z-index: 9999;
+    left: 50%;
+    transform: -50%;
+    transform: translateX(-50%);
+    top: 45%
+1911.59px
+;
+animation: glowToGreen 1s forwards;
+  animation-delay: 7s;
+}
+@keyframes glowToGreen {
+  to {
+    color: #aef3ff;
+    text-shadow:
+      0 0 5px #aef3ff,
+      0 0 10px #77d9ff,
+      0 0 20px #77d9ff,
+      0 0 40px #3bc9ff,
+      0 0 80px #3bc9ff;
+  }
+}
 
 </style>
 </head>
@@ -101,6 +136,9 @@ canvas {
 			<video id="myGif" muted loop playsinline preload="auto">
   <source src="img/6655785536143.mp4" type="video/mp4">
 </video>
+
+<h1 class="glow-text">Kim Ngân</h1>
+
 
 		</div>
 <script>
