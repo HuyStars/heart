@@ -341,8 +341,8 @@ this.color1 = "rgba(" + a + "," + a + "," + a + ",1)";
     this.getPos = function () 
     {
 
-        this.x = Math.random() * window.innerWidth; 
-        this.y = Math.random() * window.innerHeight;  
+         this.x = (window.innerWidth * 0.4) + (Math.random() * window.innerWidth * 0.2);
+    this.y = Math.random() * window.innerHeight;
     }
     this.draw = function () 
     {
