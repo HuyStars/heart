@@ -15,6 +15,7 @@ canvas {
   position: absolute;
   width: 100%;
   height: 100%;
+  z-index: 1000;
 
 }
 #pinkboard{
@@ -65,12 +66,14 @@ canvas {
 #myGif{
   position:fixed;
   left:50%; top:50%;
-  transform:translate(-50%, -50%);   /* chỉ căn giữa – KHÔNG phóng to/thu nhỏ */
-  opacity:0;                         /* tàng hình */
-  transition:opacity 2s ease-out;    /* chỉ tween opacity */
-  will-change:opacity;               /* giúp mượt trên mobile */
-
-  width:1000px; height:1200px;       /* hoặc 100%, tùy bạn */
+ transform: translate(-50%, -50%) scale(0.1); /* bắt đầu nhỏ */
+   opacity:0;             
+   transition:
+    transform 5.5s cubic-bezier(0.25, 1, 0.5, 1), /* mượt hơn */
+    opacity 4s ease-in;
+  will-change: opacity, transform;
+  
+  width:1000px; height:900px;       /* hoặc 100%, tùy bạn */
   object-fit:cover;
   filter:brightness(1.5);
   z-index:99;
@@ -78,18 +81,17 @@ canvas {
 
 /* Trạng thái sau 4 s */
 #myGif.show{
-  opacity:1;                         /* hiện dần 1 giây */
+  opacity:1;   
+    transform:translate(-50%, -50%) scale(1);
+                      /* hiện dần 1 giây */
 }
 
 
 /* Trạng thái hiện */
-#myGif.show{
-  opacity:1;
-  transform:translate(-50%, -50%) scale(1);
-}
+
 .glow-text {
   color: #ff69b4; /* màu hồng */
-  font-size: 60px;
+  font-size: 51px;
   font-weight: bold;
   text-align: center;
 
@@ -105,11 +107,25 @@ canvas {
     left: 50%;
     transform: -50%;
     transform: translateX(-50%);
-    top: 38%;
-animation: glowToGreen 5s forwards;
-  animation-delay: 7s;
+    top: 46%;
+/* animation: glowToGreen 5s forwards;
+  animation-delay: 7s; */
     font-family: 'Dancing Script', 'Pacifico', 'Great Vibes', cursive;
+    
+}
+.word {
+  opacity: 0;
+  display: inline-block;
+  transform: scale(0.3);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+  margin: 0 5px;
+}
 
+.word.show {
+  opacity: 1;
+  transform: scale(1);
 }
 @keyframes glowToGreen {
   to {
@@ -156,10 +172,14 @@ animation: glowToGreen 5s forwards;
 			</div>
 			
 			<video id="myGif" muted loop playsinline preload="auto">
-  <source src="img/6655785536143.mp4" type="video/mp4">
+  <source src="img/6854103361381.mp4" type="video/mp4">
 </video>
 
-<h1 class="glow-text">I Love You</h1>
+<h1 class="glow-text">
+  <span class="word" id="word1">I</span>
+  <span class="word" id="word2">Love</span>
+  <span class="word" id="word3">You</span>
+</h1>
 
 
 		</div>
@@ -229,6 +249,7 @@ var context;
 
                 this.init=function(){
                     this.getColor();
+                     this.text = "♥"; 
                 }
                 this.draw=function(){
                   context.clearRect(this.x - 10, this.y - 20, 30, 30); // thêm dòng này để xóa trái tim cũ
@@ -288,6 +309,7 @@ var context;
     this.init = function () 
     {
         this.getPos();
+        
         this.alpha = 1;
         this.getRandomColor();
         var x = Math.random() * 80 + 150;
@@ -622,6 +644,18 @@ var ParticlePool = (function() {
   }, 10);
 })(document.getElementById('pinkboard'));
 
+  const delays = [0, 2000, 4000]; // Thời gian xuất hiện từng cụm
+  const words = [
+    document.getElementById("word1"),
+    document.getElementById("word2"),
+    document.getElementById("word3"),
+  ];
+
+  words.forEach((word, index) => {
+    setTimeout(() => {
+      word.classList.add("show");
+    }, delays[index]);
+  });
 </script>
 
 </body>
