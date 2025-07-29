@@ -1,6 +1,8 @@
 <!doctype html>
 <html>
 <head>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+
 <meta charset="utf-8">
 <title>Heart</title>
 
@@ -110,7 +112,7 @@ canvas {
     top: 46%;
 /* animation: glowToGreen 5s forwards;
   animation-delay: 7s; */
-    font-family: 'Dancing Script', 'Pacifico', 'Great Vibes', cursive;
+font-family: 'Dancing Script', cursive;
     
 }
 .word {
@@ -217,6 +219,7 @@ var context;
 
             var rains = new Array();
             var rainCount =30;
+            var activeRainCount = rainCount; 
 
             function init(){
                 var stars = document.getElementById("stars");
@@ -249,7 +252,7 @@ var context;
 
                 this.init=function(){
                     this.getColor();
-                     this.text = "."; 
+                     this.text = "•"; 
                 }
                 this.draw=function(){
                   context.clearRect(this.x - 10, this.y - 20, 30, 30); // thêm dòng này để xóa trái tim cũ
@@ -280,7 +283,15 @@ var context;
 
                 playStars();
                 playRains();
-
+setTimeout(() => {
+  let interval = setInterval(() => {
+    if (activeRainCount > 10) {
+      activeRainCount--;  // giảm dần
+    } else {
+      clearInterval(interval); // dừng khi còn 6
+    }
+  }, 500);
+}, 3000); // bắt đầu sau 3 giây
             }
 
             function playStars(){
@@ -383,17 +394,16 @@ this.color1 = "rgba(" + a + "," + a + "," + a + ",1)";
 
 //绘制流星
 function playRains(){
-
-    for (var n = 0; n < rainCount; n++){
-        var rain = rains[n];
-        rain.move();//移动
-        if(rain.y>window.innerHeight){//超出界限后重来
-            context.clearRect(rain.x,rain.y-rain.height,rain.width,rain.height);
-            rains[n] = new MeteorRain();
-            rains[n].init();
-        }
+  for (var n = 0; n < activeRainCount; n++) {
+    var rain = rains[n];
+    rain.move();
+    if (rain.y > window.innerHeight) {
+      context.clearRect(rain.x, rain.y - rain.height, rain.width, rain.height);
+      rains[n] = new MeteorRain();
+      rains[n].init();
     }
-    setTimeout("playRains()",2);
+  }
+  setTimeout(playRains, 16); // 60 FPS, mượt hơn
 }
 
 
