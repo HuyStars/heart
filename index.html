@@ -1,7 +1,10 @@
 <!doctype html>
 <html>
 <head>
-  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&display=swap"
+  rel="stylesheet">
 
 <meta charset="utf-8">
 <title>Heart</title>
@@ -11,7 +14,7 @@ html, body {
   height: 100%;
   padding: 0;
   margin: 0;
-  background-color: #060606;
+  background-color: #050505;
 }
 canvas {
   position: absolute;
@@ -71,14 +74,15 @@ canvas {
  transform: translate(-50%, -50%) scale(0.1); /* bắt đầu nhỏ */
    opacity:0;             
    transition:
-    transform 5.5s cubic-bezier(0.25, 1, 0.5, 1), /* mượt hơn */
-    opacity 4s ease-in;
+    transform 4.5s cubic-bezier(0.25, 1, 0.5, 1), /* mượt hơn */
+    opacity 3s ease-in;
   will-change: opacity, transform;
   
   width:1000px; height:900px;       /* hoặc 100%, tùy bạn */
   object-fit:cover;
   filter:brightness(1.5);
   z-index:99;
+  border-radius: 30% 30% 50% 50%;
 }
 
 /* Trạng thái sau 4 s */
@@ -112,7 +116,8 @@ canvas {
     top: 46%;
 /* animation: glowToGreen 5s forwards;
   animation-delay: 7s; */
-font-family: 'Dancing Script', cursive;
+  font-family: 'Courier Prime', Courier, monospace;
+
     
 }
 .word {
@@ -186,6 +191,9 @@ font-family: 'Dancing Script', cursive;
 
 		</div>
 <script>
+
+
+
   const overlay = document.getElementById("overlay");
   const video = document.getElementById("myVideo");
 
