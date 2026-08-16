@@ -35,7 +35,7 @@ canvas {
 			
 			display: block;
 			margin: 0 auto;
-			color: pink;
+			color: rgb(255, 0, 212);
 			font-size: 20px;
 			padding-right: 5px;
 			animation:mymove 2.5s infinite;/* 
@@ -95,17 +95,17 @@ canvas {
 /* Trạng thái hiện */
 
 .glow-text {
-  color: #ff69b4; /* màu hồng */
+  color: yellow; /* màu hồng */
   font-size: 30px;
   font-weight: bold;
   text-align: center;
 
   text-shadow: 
-    0 0 5px #ff69b4,
-    0 0 10px #ff69b4,
-    0 0 20px #ff69b4,
-    0 0 40px #ff1493,
-    0 0 80px #ff1493;
+    0 0 5px #FF9900,
+    0 0 10px #FF9900,
+    0 0 20px #FF9900,
+    0 0 40px #FF9900,
+    0 0 80px #FF9900;
 
     position: absolute;
     z-index: 9999;
@@ -135,13 +135,13 @@ animation: glowToGreen 5s forwards;
 }
 @keyframes glowToGreen {
   to {
-    color: #aef3ff;
+    color: #f19f06;
     text-shadow:
-      0 0 5px #aef3ff,
-      0 0 10px #77d9ff,
-      0 0 20px #77d9ff,
-      0 0 40px #3bc9ff,
-      0 0 80px #3bc9ff;
+      0 0 5px #e40ec0,
+      0 0 10px #e40ec0,
+      0 0 20px #e40ec0,
+      0 0 40px #e40ec0,
+      0 0 80px #e40ec0;
   }
 }
 
@@ -168,7 +168,7 @@ animation: glowToGreen 5s forwards;
 <body>
 <div id="overlay"></div>
 
-<audio id="myVideo" controls style="display:none;">
+<audio id="myVideo" controls loop style="display:none;">
   <source src="img/video1122.mp4" type="video/mp4">
 </audio>
 <canvas id="pinkboard"></canvas>
@@ -177,11 +177,12 @@ animation: glowToGreen 5s forwards;
 			<div class="middle2">	
 			</div>
 			
-	<h1 class="glow-text">
-  <span class="word" id="word1">Chúc Bạn</span>
-  <span class="word" id="word2">Sớm Có</span>
-  <span class="word" id="word3">Người Yêu</span>
-</h1>		
+<h1 class="glow-text">
+  <span class="word" id="word1">Em</span>
+  <span class="word" id="word2">ấn vào</span>
+  <span class="word" id="word3">màn hình đi!</span>
+  <span class="word" id="word4">anh yêu em</span>
+</h1>
 
 <video 
   width="640" 
@@ -194,9 +195,9 @@ animation: glowToGreen 5s forwards;
     position: absolute; 
     top: 50%; 
     left: 50%; 
-    transform: translate(-50%, -50%) scale(4.5);
+    transform: translate(-50%, -50%) scale(1.2);
   ">
-  <source src="img/6854103361381.mp4" type="video/mp4">
+  <source src="img/6654184000691.mp4" type="video/mp4">
 </video>
 
 
@@ -258,7 +259,7 @@ var context;
                 this.x = windowWidth * Math.random();
                 this.y = 5000 * Math.random();
                 this.text="";
-                this.color  = "#ea80b0";
+                this.color  = "#FF0000";
 
                 this.getColor=function(){
 
@@ -267,7 +268,7 @@ var context;
                     if(_r<0.5){
                         this.color = "#333";
                     }else{
-                        this.color = "#ea80b0";
+                        this.color = "#FF0000";
                     }
 
                 }
@@ -296,12 +297,12 @@ var context;
                     arr.push(star);
                 }
 
-                for (var i=0;i<rainCount;i++) {
-                    var rain = new MeteorRain();
-                    rain.init();
-                    rain.draw();
-                    rains.push(rain);
-                }
+                // for (var i=0;i<rainCount;i++) {
+                //     var rain = new MeteorRain();
+                //     rain.init();
+                //     rain.draw();
+                //     rains.push(rain);
+                // }
 
                 playStars();
                 playRains();
@@ -676,12 +677,39 @@ var ParticlePool = (function() {
   }, 10);
 })(document.getElementById('pinkboard'));
 
-  const delays = [1000, 2500, 4500]; // Thời gian xuất hiện từng cụm
-  const words = [
-    document.getElementById("word1"),
-    document.getElementById("word2"),
-    document.getElementById("word3"),
-  ];
+  const word1 = document.getElementById("word1");
+const word2 = document.getElementById("word2");
+const word3 = document.getElementById("word3");
+const word4 = document.getElementById("word4");
+
+const firstGroup = [word1, word2, word3];
+const delays = [1000, 2500, 4500]; // thời gian xuất hiện từng cụm đầu
+
+firstGroup.forEach((word, index) => {
+  setTimeout(() => {
+    word.classList.add("show");
+  }, delays[index]);
+});
+
+// Sau khi cụm 3 hiện xong (4500ms), đợi thêm 2s rồi cho ẩn cả 3 đi
+const hideFirstGroupAt = 4500 + 2000; // 6500ms
+setTimeout(() => {
+  firstGroup.forEach(word => {
+    word.classList.remove("show");
+  });
+  // sau khi hiệu ứng mờ dần (0.8s) xong thì bỏ khỏi layout luôn
+  setTimeout(() => {
+    firstGroup.forEach(word => {
+      word.style.display = "none";
+    });
+  }, 800);
+}, hideFirstGroupAt);
+
+// Sau khi cụm đầu ẩn hoàn toàn, hiện "anh yêu em"
+const showWord4At = hideFirstGroupAt + 800 + 300; // 7600ms, chờ thêm chút cho mượt
+setTimeout(() => {
+  word4.classList.add("show");
+}, showWord4At);
 
   words.forEach((word, index) => {
     setTimeout(() => {
