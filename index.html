@@ -185,8 +185,6 @@ animation: glowToGreen 5s forwards;
 </h1>
 
 <video 
-  width="640" 
-  height="360" 
   autoplay 
   muted 
   loop 
@@ -195,7 +193,10 @@ animation: glowToGreen 5s forwards;
     position: absolute; 
     top: 50%; 
     left: 50%; 
-    transform: translate(-50%, -50%) scale(1.2);
+    transform: translate(-50%, -50%);
+    width: 95vw;
+    max-width: 800px;
+    height: auto;
   ">
   <source src="img/6654184000691.mp4" type="video/mp4">
 </video>
